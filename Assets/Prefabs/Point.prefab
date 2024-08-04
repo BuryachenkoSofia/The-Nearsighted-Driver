@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5735822292779897827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5735822292779897826}
+  - component: {fileID: 5735822292779897825}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5735822292779897826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735822292779897827}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5735822292779897825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5735822292779897827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04f6ad04e4ba3eb4fbed4390e3ba3c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyCar: {fileID: 9061913047742324859, guid: fd72693df195e7e4897ec5e7057f29d5, type: 3}
+  enemyLet: {fileID: 8745196113314089517, guid: 89abd5c2e7856354b9983ee86ec6e3c0, type: 3}
+  coin: {fileID: 6055516659359657481, guid: e31d5856b88f6d94f93dcc08be5ffdd2, type: 3}
+  health: {fileID: 8181083382642588443, guid: 4e6acdc8c66b6454f80acb2d9b10e21d, type: 3}
+  glasses: {fileID: 856753483055845083, guid: 48bd736b42965434ea6499b4609bd606, type: 3}
+  police: {fileID: 7881038979223611683, guid: c9c624cf446c80a44bffcbd7d23a372f, type: 3}
+  gem: {fileID: 2529593629835931524, guid: f30b93ef131236a40b2f80ff21580e67, type: 3}
