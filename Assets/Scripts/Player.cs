@@ -19,8 +19,12 @@ public class Player : MonoBehaviour
     private float speed = 20;
     private float[] lanes = { -6f, -3f, 0f, 3f, 6f };
     private int currentLaneIndex = 2;
+
+    public Image glassesBarFill;
+    private float glassesTimeLeft = 0f;
+    private float glassesTimeMax = 0f;
     public bool glasses = false;
-    private Coroutine glassesCoroutine;
+
     public AudioClip spawnSound;
     private AudioSource audioSource;
     private void Awake()
@@ -42,6 +46,7 @@ public class Player : MonoBehaviour
         mySwitch(health);
         coinsTMP.text = "Coins: " + coins;
         glasses = false;
+        
     }
 
     private void Update()
@@ -64,6 +69,18 @@ public class Player : MonoBehaviour
             Dead();
         }
         ppVolume.enabled = !glasses;
+        if (glasses)
+        {
+            glassesTimeLeft -= Time.deltaTime;
+
+            if (glassesTimeLeft <= 0f)
+            {
+                glassesTimeLeft = 0f;
+                glasses = false;
+            }
+
+            glassesBarFill.fillAmount = glassesTimeLeft / glassesTimeMax;
+        }
     }
 
     private void MoveToNextLane()
@@ -165,23 +182,11 @@ public class Player : MonoBehaviour
         coinsTMP.text = "Coins: " + coins;
     }
 
-
     public void ActivateGlasses()
     {
         glasses = true;
-        if (glassesCoroutine != null)
-        {
-            StopCoroutine(glassesCoroutine);
-        }
-        PlayerPrefs.SetFloat("glasses", (PlayerPrefs.GetInt("glasses_lvl") + 1) * 5f);
-        glassesCoroutine = StartCoroutine(RemoveGlassesAfterTime(PlayerPrefs.GetFloat("glasses")));
-    }
-
-    private IEnumerator RemoveGlassesAfterTime(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        glasses = false;
-        glassesCoroutine = null;
+        glassesTimeMax = (PlayerPrefs.GetInt("glasses_lvl") + 1) * 5f;
+        glassesTimeLeft = glassesTimeMax;
     }
 
     private void PlaySpawnSound()
