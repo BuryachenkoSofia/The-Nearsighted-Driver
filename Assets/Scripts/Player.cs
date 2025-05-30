@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public GameObject panelDead;
     private Vector2 targetPos;
 
-    public Text coinsText;
+    public TMP_Text coinsTMP;
     private float speed = 20;
     private float[] lanes = {-6f, -3f, 0f, 3f, 6f}; 
     private int currentLaneIndex = 2; 
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         coins = PlayerPrefs.GetFloat("coins");
         health = PlayerPrefs.GetInt("health");
         mySwitch(health);
-        coinsText.text = ": " + coins;
+        coinsTMP.text = "Coins: " + coins;
         glasses = false;
     }
 
@@ -92,8 +92,8 @@ public class Player : MonoBehaviour
         if(coins>=10){
             coins-=10;
             PlayerPrefs.SetFloat("coins", coins);
-            coinsText.text = ": " + coins;
-            health=3;
+            coinsTMP.text = "Coins: " + coins;
+            health =3;
             mySwitch(health);
             panelDead.SetActive(false);
             gameObject.SetActive(true);
@@ -152,10 +152,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void CoinAdd(float c){
+    public void CoinAdd(float c)
+    {
         coins += c;
         PlayerPrefs.SetFloat("coins", coins);
-        coinsText.text = ": " + coins;
+        coinsTMP.text = "Coins: " + coins;
     }
 
 

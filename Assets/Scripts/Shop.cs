@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Shop : MonoBehaviour
 {
-    public Text Coins;
+    public TMP_Text coinsTMP, maxDistanceTMP;
     public Button HP_update_btn, coin_update_btn, glasses_update_btn, gem_update_btn;
     public Text HP_price_text, coin_price_text, glasses_price_text, gem_price_text;
     private float HP_cost = 10f, coin_cost = 10f, glasses_cost = 10f, gem_cost = 10f;
 
     void Start()
     {
-
         if (!PlayerPrefs.HasKey("coins")) PlayerPrefs.SetFloat("coins", 0);
+        if (!PlayerPrefs.HasKey("maxDistance")) PlayerPrefs.SetFloat("maxDistance", 0);
 
         if (!PlayerPrefs.HasKey("pumpingСoins") || PlayerPrefs.GetFloat("pumpingСoins") == 0) PlayerPrefs.SetFloat("pumpingСoins", 1f);
         if (!PlayerPrefs.HasKey("health") || PlayerPrefs.GetInt("health") == 0) PlayerPrefs.SetInt("health", 1);
@@ -24,7 +24,8 @@ public class Shop : MonoBehaviour
     }
     void Update()
     {
-        Coins.text = ": " + PlayerPrefs.GetFloat("coins");
+        coinsTMP.text = "Coins: " + PlayerPrefs.GetFloat("coins");
+        maxDistanceTMP.text = "Max Distance: " + PlayerPrefs.GetFloat("maxDistance") + " km";
         switch (PlayerPrefs.GetInt("HP_lvl"))
         {
             case 0:

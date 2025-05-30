@@ -6,7 +6,8 @@ public class Coin : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
-    private void Awake() {
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
