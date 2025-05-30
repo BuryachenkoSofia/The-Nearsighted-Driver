@@ -8,22 +8,23 @@ using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
-    public int health = 1; 
-    public float coins = 0; 
+    public int health = 1;
+    public float coins = 0;
     public GameObject heart0, heart1, heart2, heart3, heart4;
     public PostProcessVolume ppVolume;
     public GameObject panelDead;
     private Vector2 targetPos;
-
+    public DistanceCounter distanceCounter;
     public TMP_Text coinsTMP;
     private float speed = 20;
-    private float[] lanes = {-6f, -3f, 0f, 3f, 6f}; 
-    private int currentLaneIndex = 2; 
+    private float[] lanes = { -6f, -3f, 0f, 3f, 6f };
+    private int currentLaneIndex = 2;
     public bool glasses = false;
     private Coroutine glassesCoroutine;
     public AudioClip spawnSound;
     private AudioSource audioSource;
-    private void Awake() {
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
     private void Start()
@@ -58,7 +59,8 @@ public class Player : MonoBehaviour
         }
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
-        if(health <= 0){
+        if (health <= 0)
+        {
             Dead();
         }
         ppVolume.enabled = !glasses;
@@ -83,17 +85,21 @@ public class Player : MonoBehaviour
     }
 
 
-    public void Dead(){
+    public void Dead()
+    {
         Time.timeScale = 0f;
+        CoinAdd(distanceCounter.distance * 10f);
         panelDead.SetActive(true);
         gameObject.SetActive(false);
     }
-    public void Continue(){
-        if(coins>=10){
-            coins-=10;
+    public void Continue()
+    {
+        if (coins >= 10)
+        {
+            coins -= 10;
             PlayerPrefs.SetFloat("coins", coins);
             coinsTMP.text = "Coins: " + coins;
-            health =3;
+            health = 3;
             mySwitch(health);
             panelDead.SetActive(false);
             gameObject.SetActive(true);
@@ -104,7 +110,7 @@ public class Player : MonoBehaviour
 
     public void mySwitch(int health)
     {
-        if(health<0)health=0;
+        if (health < 0) health = 0;
         switch (health)
         {
             case 0:
@@ -167,7 +173,7 @@ public class Player : MonoBehaviour
         {
             StopCoroutine(glassesCoroutine);
         }
-        PlayerPrefs.SetFloat("glasses",(PlayerPrefs.GetInt("glasses_lvl")+1)*5f);
+        PlayerPrefs.SetFloat("glasses", (PlayerPrefs.GetInt("glasses_lvl") + 1) * 5f);
         glassesCoroutine = StartCoroutine(RemoveGlassesAfterTime(PlayerPrefs.GetFloat("glasses")));
     }
 
@@ -178,8 +184,10 @@ public class Player : MonoBehaviour
         glassesCoroutine = null;
     }
 
-    private void PlaySpawnSound() {
-        if (audioSource != null && spawnSound != null) {
+    private void PlaySpawnSound()
+    {
+        if (audioSource != null && spawnSound != null)
+        {
             audioSource.PlayOneShot(spawnSound);
         }
     }
