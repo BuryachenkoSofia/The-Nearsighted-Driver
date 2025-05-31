@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using TMPro;
-using System.Runtime.InteropServices;
-using UnityEditor.Build.Content;
+
 public class CarShop : MonoBehaviour
 {
     public enum CarColor

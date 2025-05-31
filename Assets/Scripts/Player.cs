@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private Vector2 targetPos;
     public DistanceCounter distanceCounter;
     public TMP_Text coinsTMP;
-    private float speed = 20;
+    private float speed = 20f;
     private float[] lanes = { -6f, -3f, 0f, 3f, 6f };
     private int currentLaneIndex = 2;
     public List<Sprite> sprites = new List<Sprite>(8);
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
         Time.timeScale = 1f;
         targetPos = new Vector2(lanes[currentLaneIndex], transform.position.y);
         ppVolume = Camera.main.gameObject.GetComponent<PostProcessVolume>();
-
+        speed = PlayerPrefs.GetFloat("speed");
 
         if (!PlayerPrefs.HasKey("coins")) PlayerPrefs.SetFloat("coins", 0);
         coins = PlayerPrefs.GetFloat("coins");
