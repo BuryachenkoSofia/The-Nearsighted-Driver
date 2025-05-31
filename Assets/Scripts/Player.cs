@@ -5,6 +5,7 @@ using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
@@ -39,11 +40,11 @@ public class Player : MonoBehaviour
         targetPos = new Vector2(lanes[currentLaneIndex], transform.position.y);
         ppVolume = Camera.main.gameObject.GetComponent<PostProcessVolume>();
 
-        if (!PlayerPrefs.HasKey("health") || PlayerPrefs.GetInt("health") == 0) PlayerPrefs.SetInt("health", 1);
+
         if (!PlayerPrefs.HasKey("coins")) PlayerPrefs.SetFloat("coins", 0);
         coins = PlayerPrefs.GetFloat("coins");
-        health = PlayerPrefs.GetInt("health");
-        mySwitch(health);
+        health = FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;
+        healthSwitch(health);
         coinsTMP.text = "Coins: " + coins;
         glasses = false;
 
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
             PlayerPrefs.SetFloat("coins", coins);
             coinsTMP.text = "Coins: " + coins;
             health = 3;
-            mySwitch(health);
+            healthSwitch(health);
             panelDead.SetActive(false);
             gameObject.SetActive(true);
             PlaySpawnSound();
@@ -126,7 +127,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void mySwitch(int health)
+    public void healthSwitch(int health)
     {
         if (health < 0) health = 0;
         switch (health)
@@ -186,7 +187,7 @@ public class Player : MonoBehaviour
     public void ActivateGlasses()
     {
         glasses = true;
-        glassesTimeMax = (PlayerPrefs.GetInt("glasses_lvl") + 1) * 5f;
+        glassesTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].glasses_lvl +1)*5f;
         glassesTimeLeft = glassesTimeMax;
     }
 

@@ -5,24 +5,24 @@ using UnityEngine;
 public class Gem : MonoBehaviour
 {
     public float speed;
-    private float coinsAdd = 5f;
     public AudioClip coinSound;
     private AudioSource audioSource;
-    private void Awake() {
+
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
     {
         transform.Translate(Vector2.down * speed * 0.01f);
-        coinsAdd = PlayerPrefs.GetFloat("gem");
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             PlayCoinSound();
-            other.GetComponent<Player>().CoinAdd(coinsAdd);
+            other.GetComponent<Player>().CoinAdd((FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].gem_lvl+1)*5f);
             StartCoroutine(DestroyAfterSound());
         }
         if(other.CompareTag("DestroyEnemy")){

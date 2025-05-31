@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using TMPro;
 using System.Runtime.InteropServices;
+using UnityEditor.Build.Content;
 public class CarShop : MonoBehaviour
 {
     public enum CarColor
@@ -33,8 +35,10 @@ public class CarShop : MonoBehaviour
     public List<Car> cars = new List<Car>(8);
 
     public TMP_Text coinsTMP, maxDistanceTMP;
-    void Start()
+    void Awake()
     {
+        while (cars.Count < 8) cars.Add(new Car());
+
         cars[0].color = CarColor.Brown;
         cars[0].hp_lvl = 0; cars[0].coin_lvl = 0; cars[0].glasses_lvl = 0; cars[0].gem_lvl = 0; cars[0].price = 0;
         cars[1].color = CarColor.Black;
@@ -58,6 +62,7 @@ public class CarShop : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("equipped")) PlayerPrefs.SetInt("equipped", 0);
 
+        if (SceneManager.GetActiveScene().buildIndex == 1) return;
 
         for (int i = 0; i < 8; ++i)
         {
@@ -81,6 +86,8 @@ public class CarShop : MonoBehaviour
 
     void Update()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1) return;
+
         coinsTMP.text = "Coins: " + PlayerPrefs.GetFloat("coins");
         maxDistanceTMP.text = "Max Distance: " + PlayerPrefs.GetFloat("maxDistance") + " km";
 

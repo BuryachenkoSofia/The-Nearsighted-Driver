@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
             PlayCoinSound();
             if(other.GetComponent<Player>().health<5){
                 other.GetComponent<Player>().health+=1; 
-                other.GetComponent<Player>().mySwitch(other.GetComponent<Player>().health);
+                other.GetComponent<Player>().healthSwitch(other.GetComponent<Player>().health);
             }
             StartCoroutine(DestroyAfterSound());
         }

@@ -19,7 +19,7 @@ public class Coin : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayCoinSound();
-            other.GetComponent<Player>().CoinAdd(PlayerPrefs.GetFloat("pumpingСoins"));
+            other.GetComponent<Player>().CoinAdd(1f+FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].coin_lvl*0.25f);
             StartCoroutine(DestroyAfterSound());
         }
         if(other.CompareTag("DestroyEnemy")){

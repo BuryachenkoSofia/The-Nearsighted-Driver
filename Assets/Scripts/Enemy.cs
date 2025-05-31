@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
         {
             PlayEnemySound();
             other.GetComponent<Player>().health-=damage; 
-            other.GetComponent<Player>().mySwitch(other.GetComponent<Player>().health);
+            other.GetComponent<Player>().healthSwitch(other.GetComponent<Player>().health);
             StartCoroutine(DestroyAfterSound());
         }
         if(other.CompareTag("DestroyEnemy")){
