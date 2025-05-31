@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     private float speed = 20;
     private float[] lanes = { -6f, -3f, 0f, 3f, 6f };
     private int currentLaneIndex = 2;
-
+    public List<Sprite> sprites = new List<Sprite>(8);
     public Image glassesBarFill;
     private float glassesTimeLeft = 0f;
     private float glassesTimeMax = 0f;
@@ -46,7 +46,8 @@ public class Player : MonoBehaviour
         mySwitch(health);
         coinsTMP.text = "Coins: " + coins;
         glasses = false;
-        
+
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[PlayerPrefs.GetInt("equipped")];
     }
 
     private void Update()

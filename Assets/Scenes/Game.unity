@@ -1578,6 +1578,15 @@ MonoBehaviour:
   panelDead: {fileID: 954070705}
   distanceCounter: {fileID: 773773416}
   coinsTMP: {fileID: 1286823099}
+  sprites:
+  - {fileID: 1431943857, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: 1445048747, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: 512072531, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: -1997562940, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: -916108417, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: 25565897, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: 69177158, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
+  - {fileID: -1602197013, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
   glassesBarFill: {fileID: 1586300497}
   glasses: 1
   spawnSound: {fileID: 8300000, guid: c134bf6bd85561b4b938c913b97b57c9, type: 3}
