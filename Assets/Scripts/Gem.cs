@@ -21,20 +21,25 @@ public class Gem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<Player>().gems5++;
             PlayCoinSound();
-            other.GetComponent<Player>().CoinAdd((FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].gem_lvl+1)*5f);
+            other.GetComponent<Player>().CoinAdd((FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].gem_lvl + 1) * 5f);
             StartCoroutine(DestroyAfterSound());
         }
-        if(other.CompareTag("DestroyEnemy")){
+        if (other.CompareTag("DestroyEnemy"))
+        {
             Destroy(gameObject);
         }
     }
-    private void PlayCoinSound() {
-        if (audioSource != null && coinSound != null) {
+    private void PlayCoinSound()
+    {
+        if (audioSource != null && coinSound != null)
+        {
             audioSource.PlayOneShot(coinSound);
         }
     }
-    private IEnumerator DestroyAfterSound() {
+    private IEnumerator DestroyAfterSound()
+    {
         yield return new WaitForSeconds(coinSound.length);
         Destroy(gameObject);
     }

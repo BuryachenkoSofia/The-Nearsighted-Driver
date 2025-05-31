@@ -1589,6 +1589,14 @@ MonoBehaviour:
   - {fileID: -1602197013, guid: ee3f9cf242b86fb4599b05e611ecde8d, type: 3}
   glassesBarFill: {fileID: 1586300497}
   glasses: 1
+  hearts10: 0
+  coins10: 0
+  gems5: 0
+  glasses10: 0
+  truck10: 0
+  let10: 0
+  police5: 0
+  goalsScript: {fileID: 773773418}
   spawnSound: {fileID: 8300000, guid: c134bf6bd85561b4b938c913b97b57c9, type: 3}
 --- !u!82 &631586618
 AudioSource:
@@ -1777,6 +1785,7 @@ GameObject:
   - component: {fileID: 773773415}
   - component: {fileID: 773773416}
   - component: {fileID: 773773417}
+  - component: {fileID: 773773418}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1955,6 +1964,21 @@ MonoBehaviour:
     text: {fileID: 0}
   coinsTMP: {fileID: 0}
   maxDistanceTMP: {fileID: 0}
+--- !u!114 &773773418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773773410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb26dff5fdf1b624eacb87fa0bc5b6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalPrefab: {fileID: 0}
+  goalsPanel: {fileID: 0}
+  coinsText: {fileID: 0}
 --- !u!1 &954070705
 GameObject:
   m_ObjectHideFlags: 0
@@ -12051,9 +12075,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 773773414}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: MenuButton
+      - m_Target: {fileID: 631586617}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Menu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

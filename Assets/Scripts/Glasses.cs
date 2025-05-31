@@ -19,6 +19,7 @@ public class Glasses : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<Player>().glasses10++;
             PlayCoinSound();
             Player player = other.GetComponent<Player>();
             player.ActivateGlasses();

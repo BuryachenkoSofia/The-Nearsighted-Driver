@@ -20,17 +20,6 @@ public class CarShop : MonoBehaviour
         public TMP_Text text;
     }
 
-    // public List<Car> cars = new List<Car>
-    // {
-    //     new Car { color = CarColor.Brown,  hp_lvl = 0, coin_lvl = 0, glasses_lvl = 0, gem_lvl = 0, price = 0},
-    //     new Car { color = CarColor.Black,  hp_lvl = 4, coin_lvl = 1, glasses_lvl = 0, gem_lvl = 0, price = 500 },
-    //     new Car { color = CarColor.White,  hp_lvl = 1, coin_lvl = 1, glasses_lvl = 4, gem_lvl = 1, price = 700 },
-    //     new Car { color = CarColor.Yellow, hp_lvl = 0, coin_lvl = 4, glasses_lvl = 0, gem_lvl = 4, price = 800 },
-    //     new Car { color = CarColor.Purple, hp_lvl = 4, coin_lvl = 0, glasses_lvl = 4, gem_lvl = 0, price = 800 },
-    //     new Car { color = CarColor.Green,  hp_lvl = 3, coin_lvl = 2, glasses_lvl = 3, gem_lvl = 2, price = 1000 },
-    //     new Car { color = CarColor.Orange, hp_lvl = 2, coin_lvl = 3, glasses_lvl = 2, gem_lvl = 3, price = 1000 },
-    //     new Car { color = CarColor.Red,    hp_lvl = 4, coin_lvl = 4, glasses_lvl = 4, gem_lvl = 4, price = 1600 },
-    // };
     public List<Car> cars = new List<Car>(8);
 
     public TMP_Text coinsTMP, maxDistanceTMP;
@@ -89,16 +78,9 @@ public class CarShop : MonoBehaviour
 
         coinsTMP.text = "Coins: " + PlayerPrefs.GetFloat("coins");
         maxDistanceTMP.text = "Max Distance: " + PlayerPrefs.GetFloat("maxDistance") + " km";
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlayerPrefs.SetFloat("coins", PlayerPrefs.GetFloat("coins") + 100f);
-
-        }
     }
     void OnCarButtonClicked(int index)
     {
-        Debug.Log(cars[index].color);
         if (cars[index].text.text == "Equip")
         {
             EquipCar(index);
@@ -165,5 +147,6 @@ public class CarShop : MonoBehaviour
             int index = i;
             cars[index].button.onClick.AddListener(() => OnCarButtonClicked(index));
         }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -25,7 +25,8 @@ public class Player : MonoBehaviour
     private float glassesTimeLeft = 0f;
     private float glassesTimeMax = 0f;
     public bool glasses = false;
-
+    public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0;
+    public GoalsScript goalsScript;
     public AudioClip spawnSound;
     private AudioSource audioSource;
     private void Awake()
@@ -53,6 +54,14 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (hearts10 >= 10) goalsScript.GoalAchieved(0);
+        if (coins10 >= 10) goalsScript.GoalAchieved(1);
+        if (gems5 >= 5) goalsScript.GoalAchieved(2);
+        if (glasses10 >= 10) goalsScript.GoalAchieved(3);
+        if (truck10 >= 10) goalsScript.GoalAchieved(11);
+        if (let10 >= 10) goalsScript.GoalAchieved(12);
+        if (police5 >= 5) goalsScript.GoalAchieved(13);
+
         if (Vector2.Distance(transform.position, targetPos) < 0.01f)
         {
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -107,9 +116,19 @@ public class Player : MonoBehaviour
     public void Dead()
     {
         Time.timeScale = 0f;
-        CoinAdd(distanceCounter.distance * 10f);
+        if (distanceCounter.distance >= 1f) goalsScript.GoalAchieved(4);
+        if (distanceCounter.distance >= 2f) goalsScript.GoalAchieved(5);
+        if (distanceCounter.distance >= 3f) goalsScript.GoalAchieved(6);
+        if (distanceCounter.distance >= 4f) goalsScript.GoalAchieved(7);
+        if (distanceCounter.distance >= 5f) goalsScript.GoalAchieved(8);
+
         panelDead.SetActive(true);
         gameObject.SetActive(false);
+    }
+    public void Menu()
+    {
+        CoinAdd(distanceCounter.distance * 10f);
+        SceneManager.LoadScene(0);
     }
     public void Continue()
     {
@@ -187,7 +206,7 @@ public class Player : MonoBehaviour
     public void ActivateGlasses()
     {
         glasses = true;
-        glassesTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].glasses_lvl +1)*5f;
+        glassesTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].glasses_lvl + 1) * 5f;
         glassesTimeLeft = glassesTimeMax;
     }
 
