@@ -47,7 +47,7 @@ public class CarShop : MonoBehaviour
 
         cars[6].color = CarColor.Orange; cars[6].price = 1200;
         cars[6].hp_lvl = 2; cars[6].coin_lvl = 3; cars[6].glasses_lvl = 2; cars[6].gem_lvl = 3; cars[6].shield_lvl = 2;
-        
+
         cars[7].color = CarColor.Red; cars[7].price = 2000;
         cars[7].hp_lvl = 4; cars[7].coin_lvl = 4; cars[7].glasses_lvl = 4; cars[7].gem_lvl = 4; cars[7].shield_lvl = 4;
 
@@ -105,7 +105,7 @@ public class CarShop : MonoBehaviour
                 chars[index] = '1';
                 n = new string(chars);
                 PlayerPrefs.SetString("cars", n);
-
+                EquipCar(index);
             }
         }
     }

@@ -25,11 +25,12 @@ public class Player : MonoBehaviour
     private float glassesTimeLeft = 0f, glassesTimeMax = 0f;
     private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
     public bool glasses = false, shield = false;
-    public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5=0, shield5=0;
+    public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5 = 0, shield5 = 0;
     public GoalsScript goalsScript;
     public AudioClip spawnSound;
     private AudioSource audioSource;
     public GameObject protectiveField;
+    public GameObject enemyParticles;
 
     private void Awake()
     {
@@ -177,13 +178,14 @@ public class Player : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
+            Instantiate(enemyParticles, new Vector3(enemy.transform.position.x, enemy.transform.position.y, -5), Quaternion.identity);
             Destroy(enemy);
         }
     }
     public void Shield()
     {
         shield = true;
-        shieldTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].shield_lvl + 1) * 3f;
+        shieldTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].shield_lvl + 1) * 2f;
         shieldTimeLeft = shieldTimeMax;
     }
 

@@ -7,7 +7,9 @@ public class Glasses : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
-    private void Awake() {
+    public GameObject particles;
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -19,8 +21,9 @@ public class Glasses : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().glasses10++;
             PlayCoinSound();
+            Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
+            other.GetComponent<Player>().glasses10++;
             Player player = other.GetComponent<Player>();
             player.ActivateGlasses();
             StartCoroutine(DestroyAfterSound());
@@ -30,12 +33,15 @@ public class Glasses : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void PlayCoinSound() {
-        if (audioSource != null && coinSound != null) {
+    private void PlayCoinSound()
+    {
+        if (audioSource != null && coinSound != null)
+        {
             audioSource.PlayOneShot(coinSound);
         }
     }
-    private IEnumerator DestroyAfterSound() {
+    private IEnumerator DestroyAfterSound()
+    {
         yield return new WaitForSeconds(coinSound.length);
         Destroy(gameObject);
     }

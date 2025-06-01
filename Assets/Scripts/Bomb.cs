@@ -7,7 +7,9 @@ public class Bomb : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
-    private void Awake() {
+    public GameObject particles;
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
@@ -19,20 +21,25 @@ public class Bomb : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayCoinSound();
+            Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             other.GetComponent<Player>().bomb5++;
             other.GetComponent<Player>().DestroyAll();
             StartCoroutine(DestroyAfterSound());
         }
-        if(other.CompareTag("DestroyEnemy")){
+        if (other.CompareTag("DestroyEnemy"))
+        {
             Destroy(gameObject);
         }
     }
-    private void PlayCoinSound() {
-        if (audioSource != null && coinSound != null) {
+    private void PlayCoinSound()
+    {
+        if (audioSource != null && coinSound != null)
+        {
             audioSource.PlayOneShot(coinSound);
         }
     }
-    private IEnumerator DestroyAfterSound() {
+    private IEnumerator DestroyAfterSound()
+    {
         yield return new WaitForSeconds(coinSound.length);
         Destroy(gameObject);
     }

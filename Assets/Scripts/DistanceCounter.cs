@@ -15,7 +15,7 @@ public class DistanceCounter : MonoBehaviour
     void Update()
     {
         value += Time.deltaTime * 50f;
-        distance = Mathf.Round((value * (1f / spawnerCs.startTimeBtwSpawn) / 1000f)*10f) / 10f;
+        distance = Mathf.Round((value * (1f / spawnerCs.startTimeBtwSpawn) / 1000f) * 10f) / 10f;
         distanceText.text = "Distance: " + distance + " km";
         if (distance > PlayerPrefs.GetFloat("maxDistance"))
         {

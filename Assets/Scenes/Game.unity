@@ -1599,10 +1599,13 @@ MonoBehaviour:
   glasses10: 0
   truck10: 0
   let10: 0
-  police3: 0
+  police5: 0
+  bomb5: 0
+  shield5: 0
   goalsScript: {fileID: 773773418}
   spawnSound: {fileID: 8300000, guid: c134bf6bd85561b4b938c913b97b57c9, type: 3}
   protectiveField: {fileID: 746649964}
+  enemyParticles: {fileID: 4547487337777515659, guid: 5ee0219f900b1b540963fe3ee4d2b788, type: 3}
 --- !u!82 &631586618
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1992,6 +1995,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2000,6 +2004,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2008,6 +2013,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2016,6 +2022,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2024,6 +2031,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2032,6 +2040,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2040,6 +2049,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}
@@ -2048,6 +2058,7 @@ MonoBehaviour:
     coin_lvl: 0
     glasses_lvl: 0
     gem_lvl: 0
+    shield_lvl: 0
     price: 0
     button: {fileID: 0}
     text: {fileID: 0}

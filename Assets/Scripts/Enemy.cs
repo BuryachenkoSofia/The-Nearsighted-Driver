@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public float speed;
     public AudioClip enemySound;
     private AudioSource audioSource;
+    public GameObject particles;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -19,10 +20,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            PlayEnemySound();
+            Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             if (damage == 1) other.GetComponent<Player>().let10++;
             if (damage == 2) other.GetComponent<Player>().truck10++;
             if (damage == 3) other.GetComponent<Player>().police5++;
-            PlayEnemySound();
             if (!other.GetComponent<Player>().shield)
             {
                 other.GetComponent<Player>().health -= damage;

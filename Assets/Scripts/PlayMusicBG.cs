@@ -26,7 +26,8 @@ public class PlayMusicBG : MonoBehaviour
     {
         audioSource = BGMusic.GetComponent<AudioSource>();
     }
-    private void Update() {
+    private void Update()
+    {
         audioSource.volume = PlayerPrefs.GetFloat("music");
     }
 

@@ -8,20 +8,20 @@ public class Point : MonoBehaviour
     void Start()
     {
         int rand = Random.Range(0, 100);
-        if (rand < 8)
+        if (rand < 9)
         { //8% glasses
             InstantiateObj(glasses);
         }
-        else if (rand < 16)
+        else if (rand < 18)
         { //8% coin
             InstantiateObj(coin);
         }
-        else if (rand < 18)
-        {
+        else if (rand < 19)
+        { //1% bomb
             InstantiateObj(bomb);
         }
         else if (rand < 20)
-        {
+        { //1% shield
             InstantiateObj(shield);
         }
         else if (rand < 25)

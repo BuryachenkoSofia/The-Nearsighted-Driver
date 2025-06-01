@@ -7,6 +7,7 @@ public class Shield : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
+    public GameObject particles;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -20,6 +21,7 @@ public class Shield : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayCoinSound();
+            Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             other.GetComponent<Player>().shield5++;
             other.GetComponent<Player>().Shield();
             StartCoroutine(DestroyAfterSound());

@@ -150,6 +150,7 @@ MonoBehaviour:
   damage: 3
   speed: 24
   enemySound: {fileID: 8300000, guid: 26e19616f6ba9f6469e9d3d6c38b23fe, type: 3}
+  particles: {fileID: 4547487337777515659, guid: 5ee0219f900b1b540963fe3ee4d2b788, type: 3}
 --- !u!82 &707864296213107503
 AudioSource:
   m_ObjectHideFlags: 0

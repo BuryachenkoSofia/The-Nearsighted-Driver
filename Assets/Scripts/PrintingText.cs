@@ -17,14 +17,14 @@ public class PrintingText : MonoBehaviour
 
     private IEnumerator DisplayTextSequence()
     {
-            string text = "Due to damage to your car, you were unable to drive further and were caught by the police.";
-            displayText.text = "";
-            for (int i = 0; i < text.Length; i++)
-            {
-                displayText.text += text[i];
-                yield return new WaitForSecondsRealtime(typeDelay);
-            }
-            yield return new WaitForSecondsRealtime(displayDuration);
-            displayText.color = new Color(displayText.color.r, displayText.color.g, displayText.color.b, 1f);
+        string text = "Due to damage to your car, you were unable to drive further and were caught by the police.";
+        displayText.text = "";
+        for (int i = 0; i < text.Length; i++)
+        {
+            displayText.text += text[i];
+            yield return new WaitForSecondsRealtime(typeDelay);
+        }
+        yield return new WaitForSecondsRealtime(displayDuration);
+        displayText.color = new Color(displayText.color.r, displayText.color.g, displayText.color.b, 1f);
     }
 }

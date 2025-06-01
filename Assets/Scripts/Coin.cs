@@ -6,6 +6,7 @@ public class Coin : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
+    public GameObject particles;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -20,20 +21,25 @@ public class Coin : MonoBehaviour
         {
             other.GetComponent<Player>().coins10++;
             PlayCoinSound();
-            other.GetComponent<Player>().CoinAdd(1f+FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].coin_lvl*0.25f);
+            other.GetComponent<Player>().CoinAdd(1f + FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].coin_lvl * 0.25f);
+            Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             StartCoroutine(DestroyAfterSound());
         }
-        if(other.CompareTag("DestroyEnemy")){
+        if (other.CompareTag("DestroyEnemy"))
+        {
             Destroy(gameObject);
         }
     }
 
-    private void PlayCoinSound() {
-        if (audioSource != null && coinSound != null) {
+    private void PlayCoinSound()
+    {
+        if (audioSource != null && coinSound != null)
+        {
             audioSource.PlayOneShot(coinSound);
         }
     }
-    private IEnumerator DestroyAfterSound() {
+    private IEnumerator DestroyAfterSound()
+    {
         yield return new WaitForSeconds(coinSound.length);
         Destroy(gameObject);
     }

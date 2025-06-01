@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   coinSound: {fileID: 8300000, guid: 5ab8fc664ca4d604f820e255005a664a, type: 3}
+  particles: {fileID: 4547487337777515659, guid: 88a9ff8dffb77944d89eab4c948a2cdc, type: 3}
 --- !u!82 &-3269907073530538555
 AudioSource:
   m_ObjectHideFlags: 0

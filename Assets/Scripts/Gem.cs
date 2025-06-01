@@ -7,6 +7,7 @@ public class Gem : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
+    public GameObject particles;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class Gem : MonoBehaviour
         {
             other.GetComponent<Player>().gems5++;
             PlayCoinSound();
+            Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             other.GetComponent<Player>().CoinAdd((FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].gem_lvl + 1) * 5f);
             StartCoroutine(DestroyAfterSound());
         }
