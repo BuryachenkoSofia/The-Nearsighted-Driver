@@ -14,7 +14,7 @@ public class Point : MonoBehaviour
         }
         else if (rand < 16)
         { //8% coin
-            InstantiateObj(shield);
+            InstantiateObj(coin);
         }
         else if (rand < 18)
         {

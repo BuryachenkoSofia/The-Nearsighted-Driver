@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     private float glassesTimeLeft = 0f, glassesTimeMax = 0f;
     private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
     public bool glasses = false, shield = false;
-    public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0;
+    public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5=0, shield5=0;
     public GoalsScript goalsScript;
     public AudioClip spawnSound;
     private AudioSource audioSource;
@@ -65,6 +65,8 @@ public class Player : MonoBehaviour
         if (truck10 >= 10) goalsScript.GoalAchieved(11);
         if (let10 >= 10) goalsScript.GoalAchieved(12);
         if (police5 >= 5) goalsScript.GoalAchieved(13);
+        if (bomb5 >= 5) goalsScript.GoalAchieved(16);
+        if (shield5 >= 5) goalsScript.GoalAchieved(17);
 
         if (Vector2.Distance(transform.position, targetPos) < 0.01f)
         {

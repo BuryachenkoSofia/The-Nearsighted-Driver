@@ -7,7 +7,8 @@ public class Shield : MonoBehaviour
     public float speed;
     public AudioClip coinSound;
     private AudioSource audioSource;
-    private void Awake() {
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
     private void FixedUpdate()
@@ -19,19 +20,24 @@ public class Shield : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayCoinSound();
+            other.GetComponent<Player>().shield5++;
             other.GetComponent<Player>().Shield();
             StartCoroutine(DestroyAfterSound());
         }
-        if(other.CompareTag("DestroyEnemy")){
+        if (other.CompareTag("DestroyEnemy"))
+        {
             Destroy(gameObject);
         }
     }
-    private void PlayCoinSound() {
-        if (audioSource != null && coinSound != null) {
+    private void PlayCoinSound()
+    {
+        if (audioSource != null && coinSound != null)
+        {
             audioSource.PlayOneShot(coinSound);
         }
     }
-    private IEnumerator DestroyAfterSound() {
+    private IEnumerator DestroyAfterSound()
+    {
         yield return new WaitForSeconds(coinSound.length);
         Destroy(gameObject);
     }

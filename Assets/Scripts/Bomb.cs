@@ -19,6 +19,7 @@ public class Bomb : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayCoinSound();
+            other.GetComponent<Player>().bomb5++;
             other.GetComponent<Player>().DestroyAll();
             StartCoroutine(DestroyAfterSound());
         }
