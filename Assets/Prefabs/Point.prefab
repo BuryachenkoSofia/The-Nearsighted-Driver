@@ -51,3 +51,5 @@ MonoBehaviour:
   glasses: {fileID: 856753483055845083, guid: 48bd736b42965434ea6499b4609bd606, type: 3}
   police: {fileID: 7881038979223611683, guid: c9c624cf446c80a44bffcbd7d23a372f, type: 3}
   gem: {fileID: 2529593629835931524, guid: f30b93ef131236a40b2f80ff21580e67, type: 3}
+  bomb: {fileID: 6862469552416060, guid: e6cc2781207937948988a4986d6df3c5, type: 3}
+  shield: {fileID: 5310192431981643578, guid: 112143668d5acd04c925ddff2b627f36, type: 3}

@@ -14,7 +14,7 @@ public class CarShop : MonoBehaviour
     public class Car
     {
         public CarShop.CarColor color;
-        public int hp_lvl, coin_lvl, glasses_lvl, gem_lvl;
+        public int hp_lvl, coin_lvl, glasses_lvl, gem_lvl, shield_lvl;
         public int price;
         public Button button;
         public TMP_Text text;
@@ -27,22 +27,30 @@ public class CarShop : MonoBehaviour
     {
         while (cars.Count < 8) cars.Add(new Car());
 
-        cars[0].color = CarColor.Brown;
-        cars[0].hp_lvl = 0; cars[0].coin_lvl = 0; cars[0].glasses_lvl = 0; cars[0].gem_lvl = 0; cars[0].price = 0;
-        cars[1].color = CarColor.Black;
-        cars[1].hp_lvl = 4; cars[1].coin_lvl = 1; cars[1].glasses_lvl = 0; cars[1].gem_lvl = 0; cars[1].price = 500;
-        cars[2].color = CarColor.White;
-        cars[2].hp_lvl = 1; cars[2].coin_lvl = 1; cars[2].glasses_lvl = 4; cars[2].gem_lvl = 1; cars[2].price = 700;
-        cars[3].color = CarColor.Yellow;
-        cars[3].hp_lvl = 0; cars[3].coin_lvl = 4; cars[3].glasses_lvl = 0; cars[3].gem_lvl = 4; cars[3].price = 800;
-        cars[4].color = CarColor.Purple;
-        cars[4].hp_lvl = 4; cars[4].coin_lvl = 0; cars[4].glasses_lvl = 4; cars[4].gem_lvl = 0; cars[4].price = 800;
-        cars[5].color = CarColor.Green;
-        cars[5].hp_lvl = 3; cars[5].coin_lvl = 2; cars[5].glasses_lvl = 3; cars[5].gem_lvl = 2; cars[5].price = 1000;
-        cars[6].color = CarColor.Orange;
-        cars[6].hp_lvl = 2; cars[6].coin_lvl = 3; cars[6].glasses_lvl = 2; cars[6].gem_lvl = 3; cars[6].price = 1000;
-        cars[7].color = CarColor.Red;
-        cars[7].hp_lvl = 4; cars[7].coin_lvl = 4; cars[7].glasses_lvl = 4; cars[7].gem_lvl = 4; cars[7].price = 1600;
+        cars[0].color = CarColor.Brown; cars[0].price = 0;
+        cars[0].hp_lvl = 0; cars[0].coin_lvl = 0; cars[0].glasses_lvl = 0; cars[0].gem_lvl = 0; cars[0].shield_lvl = 0;
+
+        cars[1].color = CarColor.Black; cars[1].price = 800;
+        cars[1].hp_lvl = 4; cars[1].coin_lvl = 0; cars[1].glasses_lvl = 0; cars[1].gem_lvl = 0; cars[1].shield_lvl = 4;
+
+        cars[2].color = CarColor.White; cars[2].price = 800;
+        cars[2].hp_lvl = 1; cars[2].coin_lvl = 1; cars[2].glasses_lvl = 4; cars[2].gem_lvl = 1; cars[2].shield_lvl = 1;
+
+        cars[3].color = CarColor.Yellow; cars[3].price = 800;
+        cars[3].hp_lvl = 0; cars[3].coin_lvl = 4; cars[3].glasses_lvl = 0; cars[3].gem_lvl = 4; cars[3].shield_lvl = 0;
+
+        cars[4].color = CarColor.Purple; cars[4].price = 1000;
+        cars[4].hp_lvl = 4; cars[4].coin_lvl = 0; cars[4].glasses_lvl = 4; cars[4].gem_lvl = 0; cars[4].shield_lvl = 2;
+
+        cars[5].color = CarColor.Green; cars[5].price = 1300;
+        cars[5].hp_lvl = 3; cars[5].coin_lvl = 2; cars[5].glasses_lvl = 3; cars[5].gem_lvl = 2; cars[5].shield_lvl = 3;
+
+        cars[6].color = CarColor.Orange; cars[6].price = 1200;
+        cars[6].hp_lvl = 2; cars[6].coin_lvl = 3; cars[6].glasses_lvl = 2; cars[6].gem_lvl = 3; cars[6].shield_lvl = 2;
+        
+        cars[7].color = CarColor.Red; cars[7].price = 2000;
+        cars[7].hp_lvl = 4; cars[7].coin_lvl = 4; cars[7].glasses_lvl = 4; cars[7].gem_lvl = 4; cars[7].shield_lvl = 4;
+
 
         if (!PlayerPrefs.HasKey("coins")) PlayerPrefs.SetFloat("coins", 0);
         if (!PlayerPrefs.HasKey("maxDistance")) PlayerPrefs.SetFloat("maxDistance", 0);

@@ -44,6 +44,8 @@ public class GoalsScript : MonoBehaviour
     public GameObject goalPrefab, goalsPanel;
     private string goalsStatusStr = "";
     public TMP_Text coinsText;
+    public GameObject newGoalsImg;
+    public TMP_Text newGoalsText;
 
     void Start()
     {
@@ -110,7 +112,15 @@ public class GoalsScript : MonoBehaviour
         {
             GoalAchieved(15);
         }
-
+        if (PlayerPrefs.GetString("goals").Count(c => c == '1') > 0)
+        {
+            newGoalsImg.SetActive(true);
+            newGoalsText.text = PlayerPrefs.GetString("goals").Count(c => c == '1').ToString();
+        }
+        else
+        {
+            newGoalsImg.SetActive(false);
+        }
     }
     void OnGoalButtonClicked(int index)
     {

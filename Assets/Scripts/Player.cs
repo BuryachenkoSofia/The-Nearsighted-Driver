@@ -21,14 +21,16 @@ public class Player : MonoBehaviour
     private float[] lanes = { -6f, -3f, 0f, 3f, 6f };
     private int currentLaneIndex = 2;
     public List<Sprite> sprites = new List<Sprite>(8);
-    public Image glassesBarFill;
-    private float glassesTimeLeft = 0f;
-    private float glassesTimeMax = 0f;
-    public bool glasses = false;
+    public Image glassesBarFill, shieldBarFill;
+    private float glassesTimeLeft = 0f, glassesTimeMax = 0f;
+    private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
+    public bool glasses = false, shield = false;
     public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0;
     public GoalsScript goalsScript;
     public AudioClip spawnSound;
     private AudioSource audioSource;
+    public GameObject protectiveField;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour
         healthSwitch(health);
         coinsTMP.text = "Coins: " + coins;
         glasses = false;
+        shield = false;
+        protectiveField.SetActive(false);
 
         this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[PlayerPrefs.GetInt("equipped")];
     }
@@ -80,6 +84,7 @@ public class Player : MonoBehaviour
             Dead();
         }
         ppVolume.enabled = !glasses;
+        protectiveField.SetActive(shield);
         if (glasses)
         {
             glassesTimeLeft -= Time.deltaTime;
@@ -91,6 +96,18 @@ public class Player : MonoBehaviour
             }
 
             glassesBarFill.fillAmount = glassesTimeLeft / glassesTimeMax;
+        }
+        if (shield)
+        {
+            shieldTimeLeft -= Time.deltaTime;
+
+            if (shieldTimeLeft <= 0f)
+            {
+                shieldTimeLeft = 0f;
+                shield = false;
+            }
+
+            shieldBarFill.fillAmount = shieldTimeLeft / shieldTimeMax;
         }
     }
 
@@ -122,6 +139,8 @@ public class Player : MonoBehaviour
         if (distanceCounter.distance >= 4f) goalsScript.GoalAchieved(7);
         if (distanceCounter.distance >= 5f) goalsScript.GoalAchieved(8);
 
+        glassesBarFill.fillAmount = 0;
+        shieldBarFill.fillAmount = 0;
         panelDead.SetActive(true);
         gameObject.SetActive(false);
     }
@@ -130,20 +149,40 @@ public class Player : MonoBehaviour
         CoinAdd(distanceCounter.distance * 10f);
         SceneManager.LoadScene(0);
     }
+    public void Restart()
+    {
+        CoinAdd(distanceCounter.distance * 10f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void Continue()
     {
-        if (coins >= 10)
+        if (coins >= 25)
         {
-            coins -= 10;
+            coins -= 25;
             PlayerPrefs.SetFloat("coins", coins);
             coinsTMP.text = "Coins: " + coins;
-            health = 3;
+            health = FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;
             healthSwitch(health);
             panelDead.SetActive(false);
             gameObject.SetActive(true);
+            DestroyAll();
             PlaySpawnSound();
             Time.timeScale = 1f;
         }
+    }
+    public void DestroyAll()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+    }
+    public void Shield()
+    {
+        shield = true;
+        shieldTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].shield_lvl + 1) * 3f;
+        shieldTimeLeft = shieldTimeMax;
     }
 
     public void healthSwitch(int health)

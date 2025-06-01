@@ -23,8 +23,11 @@ public class Enemy : MonoBehaviour
             if (damage == 2) other.GetComponent<Player>().truck10++;
             if (damage == 3) other.GetComponent<Player>().police5++;
             PlayEnemySound();
-            other.GetComponent<Player>().health -= damage;
-            other.GetComponent<Player>().healthSwitch(other.GetComponent<Player>().health);
+            if (!other.GetComponent<Player>().shield)
+            {
+                other.GetComponent<Player>().health -= damage;
+                other.GetComponent<Player>().healthSwitch(other.GetComponent<Player>().health);
+            }
             StartCoroutine(DestroyAfterSound());
         }
         if (other.CompareTag("DestroyEnemy"))
