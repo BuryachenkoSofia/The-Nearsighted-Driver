@@ -1,21 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    public float speed;
-    public AudioClip coinSound;
     private AudioSource audioSource;
-    public GameObject particles;
+    [SerializeField] private float speed;
+    [SerializeField] private AudioClip coinSound;
+    [SerializeField] private GameObject particles;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
+
     private void FixedUpdate()
     {
         transform.Translate(Vector2.down * speed * 0.01f);
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -31,6 +33,7 @@ public class Shield : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void PlayCoinSound()
     {
         if (audioSource != null && coinSound != null)
@@ -38,6 +41,7 @@ public class Shield : MonoBehaviour
             audioSource.PlayOneShot(coinSound);
         }
     }
+
     private IEnumerator DestroyAfterSound()
     {
         yield return new WaitForSeconds(coinSound.length);

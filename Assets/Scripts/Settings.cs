@@ -5,9 +5,10 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     private float speed;
-    public Slider sliderSpeed, sliderMusic;
-    public TMP_Text textSpeed, textMusic;
-    void Awake()
+    [SerializeField] private Slider sliderSpeed, sliderMusic;
+    [SerializeField] private TMP_Text textSpeed, textMusic;
+
+    private void Awake()
     {
         if (!PlayerPrefs.HasKey("speed"))
         {
@@ -22,7 +23,7 @@ public class Settings : MonoBehaviour
         sliderMusic.value = PlayerPrefs.GetFloat("music");
     }
 
-    void Update()
+    private void Update()
     {
         textSpeed.text = "Lane Change Speed: " + Mathf.Round(sliderSpeed.value * 10f) / 10f;
         PlayerPrefs.SetFloat("speed", sliderSpeed.value);

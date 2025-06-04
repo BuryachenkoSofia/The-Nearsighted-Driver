@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayMusicBG : MonoBehaviour
 {
-    public GameObject BGMusic;
     private AudioSource audioSource;
     private GameObject[] audioPrefabs;
+    [SerializeField] private GameObject BGMusic;
+
     private void Awake()
     {
         audioPrefabs = GameObject.FindGameObjectsWithTag("Sound");
@@ -22,13 +21,13 @@ public class PlayMusicBG : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         audioSource = BGMusic.GetComponent<AudioSource>();
     }
+
     private void Update()
     {
         audioSource.volume = PlayerPrefs.GetFloat("music");
     }
-
 }

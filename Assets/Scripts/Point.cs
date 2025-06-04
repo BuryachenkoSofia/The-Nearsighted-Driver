@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    public GameObject enemyCar, enemyLet, coin, health, glasses, police, gem, bomb, shield;
-    void Start()
+    [SerializeField] private GameObject enemyCar, enemyLet, coin, health, glasses, police, gem, bomb, shield;
+
+    private void Start()
     {
         int rand = Random.Range(0, 100);
         if (rand < 9)
@@ -51,6 +50,7 @@ public class Point : MonoBehaviour
         }
         Destroy(gameObject);
     }
+    
     private void InstantiateObj(GameObject obj)
     {
         float newZ = -1.0f;

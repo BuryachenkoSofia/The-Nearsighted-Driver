@@ -3,9 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 using TMPro;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
@@ -17,7 +15,7 @@ public class Player : MonoBehaviour
     private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
     private AudioSource audioSource;
     private PostProcessVolume ppVolume;
-    
+
     [HideInInspector] public int health = 1;
     [HideInInspector] public float coins = 0;
     [HideInInspector] public bool glasses = false, shield = false;
@@ -31,9 +29,9 @@ public class Player : MonoBehaviour
     [SerializeField] private TMP_Text coinsTMP;
     [SerializeField] private List<Sprite> sprites = new List<Sprite>(8);
     [SerializeField] private Image glassesBarFill, shieldBarFill;
-    [SerializeField] private AudioClip spawnSound;
+    [SerializeField] private AudioClip spawnSound, shieldSound;
     [SerializeField] private GameObject protectiveField;
-    [SerializeField] private GameObject enemyParticles;
+    [SerializeField] private GameObject enemyParticles, shieldParticles;
 
     private void Awake()
     {
@@ -110,6 +108,9 @@ public class Player : MonoBehaviour
             if (shieldTimeLeft <= 0f)
             {
                 shieldTimeLeft = 0f;
+                audioSource.PlayOneShot(shieldSound);
+                Instantiate(shieldParticles, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -5), Quaternion.identity);
+
                 shield = false;
             }
 
@@ -135,7 +136,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public void Dead()
     {
         Time.timeScale = 0f;
@@ -150,16 +150,19 @@ public class Player : MonoBehaviour
         panelDead.SetActive(true);
         gameObject.SetActive(false);
     }
+
     public void Menu()
     {
         CoinAdd(distanceCounter.distance * 10f);
         SceneManager.LoadScene(0);
     }
+
     public void Restart()
     {
         CoinAdd(distanceCounter.distance * 10f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
     public void Continue()
     {
         if (coins >= 25)
@@ -176,6 +179,7 @@ public class Player : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+
     public void DestroyAll()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -185,11 +189,34 @@ public class Player : MonoBehaviour
             Destroy(enemy);
         }
     }
+
     public void Shield()
     {
         shield = true;
         shieldTimeMax = (carShop.cars[PlayerPrefs.GetInt("equipped")].shield_lvl + 1) * 2f;
         shieldTimeLeft = shieldTimeMax;
+    }
+
+    public void CoinAdd(float c)
+    {
+        coins += c;
+        PlayerPrefs.SetFloat("coins", coins);
+        coinsTMP.text = "Coins: " + coins;
+    }
+
+    public void ActivateGlasses()
+    {
+        glasses = true;
+        glassesTimeMax = (carShop.cars[PlayerPrefs.GetInt("equipped")].glasses_lvl + 1) * 5f;
+        glassesTimeLeft = glassesTimeMax;
+    }
+
+    private void PlaySpawnSound()
+    {
+        if (audioSource != null && spawnSound != null)
+        {
+            audioSource.PlayOneShot(spawnSound);
+        }
     }
 
     public void healthSwitch(int health)
@@ -242,25 +269,4 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void CoinAdd(float c)
-    {
-        coins += c;
-        PlayerPrefs.SetFloat("coins", coins);
-        coinsTMP.text = "Coins: " + coins;
-    }
-
-    public void ActivateGlasses()
-    {
-        glasses = true;
-        glassesTimeMax = (carShop.cars[PlayerPrefs.GetInt("equipped")].glasses_lvl + 1) * 5f;
-        glassesTimeLeft = glassesTimeMax;
-    }
-
-    private void PlaySpawnSound()
-    {
-        if (audioSource != null && spawnSound != null)
-        {
-            audioSource.PlayOneShot(spawnSound);
-        }
-    }
 }

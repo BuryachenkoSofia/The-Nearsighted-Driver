@@ -1,21 +1,24 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+
 public class Enemy : MonoBehaviour
 {
-    public int damage;
-    public float speed;
-    public AudioClip enemySound;
     private AudioSource audioSource;
-    public GameObject particles;
+    [SerializeField] private int damage;
+    [SerializeField] private float speed;
+    [SerializeField] private AudioClip enemySound;
+    [SerializeField] private GameObject particles;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
     }
+
     private void FixedUpdate()
     {
         transform.Translate(Vector2.down * speed * 0.01f);
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -37,6 +40,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private void PlayEnemySound()
     {
         if (audioSource != null && enemySound != null)
@@ -44,6 +48,7 @@ public class Enemy : MonoBehaviour
             audioSource.PlayOneShot(enemySound);
         }
     }
+    
     private IEnumerator DestroyAfterSound()
     {
         yield return new WaitForSeconds(enemySound.length);

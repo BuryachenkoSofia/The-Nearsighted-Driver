@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -44,14 +43,14 @@ public class GoalsScript : MonoBehaviour
         new Goal { text="Collect 5 shield in a single run", reward=100, index=12 },               //17
     };
 
-    public GameObject goalPrefab, goalsPanel;
     private string goalsStatusStr = "";
-    public TMP_Text coinsText;
-    public GameObject newGoalsImg;
-    public TMP_Text newGoalsText;
-    public ButtonSound buttonSound;
+    [SerializeField] private TMP_Text coinsText;
+    [SerializeField] private GameObject newGoalsImg;
+    [SerializeField] private TMP_Text newGoalsText;
+    [SerializeField] private ButtonSound buttonSound;
+    [SerializeField] private GameObject goalPrefab, goalsPanel;
 
-    void Start()
+    private void Start()
     {
         if (!PlayerPrefs.HasKey("goals"))
         {
@@ -103,7 +102,8 @@ public class GoalsScript : MonoBehaviour
             goal.button.onClick.AddListener(() => buttonSound.PlaySound());
         }
     }
-    void Update()
+
+    private void Update()
     {
         if (SceneManager.GetActiveScene().buildIndex != 0) return;
 
@@ -134,7 +134,8 @@ public class GoalsScript : MonoBehaviour
             newGoalsImg.SetActive(false);
         }
     }
-    void OnGoalButtonClicked(int index)
+
+    private void OnGoalButtonClicked(int index)
     {
         PlayerPrefs.SetFloat("coins", PlayerPrefs.GetFloat("coins") + goals[index].reward);
 
@@ -147,6 +148,7 @@ public class GoalsScript : MonoBehaviour
         goals[index].button.gameObject.transform.Find("Text").GetComponent<TMP_Text>().text = "Reward received";
         goals[index].button.interactable = false;
     }
+    
     public void GoalAchieved(int index)
     {
         if (PlayerPrefs.GetString("goals")[index] == '2')

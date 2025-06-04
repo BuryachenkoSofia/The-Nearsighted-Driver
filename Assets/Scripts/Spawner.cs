@@ -1,15 +1,14 @@
-using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject[] enemyVariants;
     private float timeBtwSpawn;
-    public float startTimeBtwSpawn = 2f;
     private float decreaseTime = 0.05f;
     private float minTime = 0.7f;
+    [SerializeField] private GameObject[] enemyVariants;
+    public float startTimeBtwSpawn = 2f;
 
-    void Update()
+    private void Update()
     {
         if (timeBtwSpawn <= 0)
         {
@@ -25,6 +24,7 @@ public class Spawner : MonoBehaviour
             timeBtwSpawn -= Time.deltaTime;
         }
     }
+    
     public void Spawn()
     {
         if (enemyVariants.Length <= 0)

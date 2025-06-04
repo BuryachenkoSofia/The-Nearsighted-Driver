@@ -1674,8 +1674,10 @@ MonoBehaviour:
   glassesBarFill: {fileID: 1586300497}
   shieldBarFill: {fileID: 1831524985}
   spawnSound: {fileID: 8300000, guid: c134bf6bd85561b4b938c913b97b57c9, type: 3}
+  shieldSound: {fileID: 8300000, guid: 26e19616f6ba9f6469e9d3d6c38b23fe, type: 3}
   protectiveField: {fileID: 746649964}
   enemyParticles: {fileID: 4547487337777515659, guid: 5ee0219f900b1b540963fe3ee4d2b788, type: 3}
+  shieldParticles: {fileID: 4547487337777515659, guid: bb7c0b34183c5834f91880c5052c8522, type: 3}
 --- !u!82 &631586618
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2059,10 +2061,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b358cac1980284187ab7e7f194807d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerCs: {fileID: 1514942503}
   distanceText: {fileID: 2145220783}
   distance: 0
   value: 0
-  spawnerCs: {fileID: 1514942503}
 --- !u!114 &773773417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2162,11 +2164,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb26dff5fdf1b624eacb87fa0bc5b6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalPrefab: {fileID: 0}
-  goalsPanel: {fileID: 0}
   coinsText: {fileID: 0}
   newGoalsImg: {fileID: 0}
   newGoalsText: {fileID: 0}
+  buttonSound: {fileID: 0}
+  goalPrefab: {fileID: 0}
+  goalsPanel: {fileID: 0}
 --- !u!1 &954070705
 GameObject:
   m_ObjectHideFlags: 0

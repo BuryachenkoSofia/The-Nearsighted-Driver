@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PrintingText : MonoBehaviour
 {
-    public TMP_Text displayText;
     private float displayDuration = 4f;
     private float typeDelay = 0.02f;
+    [SerializeField] private TMP_Text displayText;
 
     private void Start()
     {
