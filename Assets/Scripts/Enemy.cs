@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             PlayEnemySound();
             Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             if (damage == 1) other.GetComponent<Player>().let10++;

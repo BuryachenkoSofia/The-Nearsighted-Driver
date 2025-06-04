@@ -22,6 +22,7 @@ public class Glasses : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             PlayCoinSound();
             Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);
             other.GetComponent<Player>().glasses10++;

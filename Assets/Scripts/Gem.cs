@@ -22,6 +22,7 @@ public class Gem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             other.GetComponent<Player>().gems5++;
             PlayCoinSound();
             Instantiate(particles, new Vector3(transform.position.x, transform.position.y, -5), Quaternion.identity);

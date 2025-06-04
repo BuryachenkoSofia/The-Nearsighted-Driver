@@ -22,6 +22,7 @@ public class Coin : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             other.GetComponent<Player>().coins10++;
             PlayCoinSound();
             other.GetComponent<Player>().CoinAdd(1f + FindAnyObjectByType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].coin_lvl * 0.25f);

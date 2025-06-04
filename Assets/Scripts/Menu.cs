@@ -10,9 +10,7 @@ public class Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 0f;
-            PausePanel.SetActive(true);
-            buttonSound.PlaySound();
+            PauseButton();
         }
     }
 
@@ -28,7 +26,18 @@ public class Menu : MonoBehaviour
 
     public void PauseButton()
     {
-        Time.timeScale = 0f;
+        if (PausePanel.activeSelf)
+        {
+            Time.timeScale = 1f;
+            PausePanel.SetActive(false);
+            buttonSound.PlaySound();
+        }
+        else
+        {
+            Time.timeScale = 0f;
+            PausePanel.SetActive(true);
+            buttonSound.PlaySound();
+        }
     }
 
     public void StartButton()
