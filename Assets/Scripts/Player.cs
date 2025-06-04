@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Vector2 targetPos;
     private float glassesTimeLeft = 0f, glassesTimeMax = 0f;
     private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
+    private bool isContinue = false;
     private AudioSource audioSource;
     private PostProcessVolume ppVolume;
 
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip spawnSound, shieldSound;
     [SerializeField] private GameObject protectiveField;
     [SerializeField] private GameObject enemyParticles, shieldParticles;
+    [SerializeField] private Button continueButton;
 
     private void Awake()
     {
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
         coinsTMP.text = "Coins: " + coins;
         glasses = false;
         shield = false;
+        isContinue = false;
         protectiveField.SetActive(false);
 
         this.gameObject.GetComponent<SpriteRenderer>().sprite = sprites[PlayerPrefs.GetInt("equipped")];
@@ -116,6 +119,14 @@ public class Player : MonoBehaviour
 
             shieldBarFill.fillAmount = shieldTimeLeft / shieldTimeMax;
         }
+        if (isContinue)
+        {
+            continueButton.interactable = false;
+        }
+        else
+        {
+            continueButton.interactable = true;
+        }
     }
 
     public void MoveToNextLane()
@@ -165,9 +176,10 @@ public class Player : MonoBehaviour
 
     public void Continue()
     {
-        if (coins >= 25)
+        if (coins >= 25 && !isContinue)
         {
             coins -= 25;
+            isContinue = true;
             PlayerPrefs.SetFloat("coins", coins);
             coinsTMP.text = "Coins: " + coins;
             health = carShop.cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;

@@ -1815,6 +1815,7 @@ MonoBehaviour:
   protectiveField: {fileID: 746649964}
   enemyParticles: {fileID: 4547487337777515659, guid: 5ee0219f900b1b540963fe3ee4d2b788, type: 3}
   shieldParticles: {fileID: 4547487337777515659, guid: bb7c0b34183c5834f91880c5052c8522, type: 3}
+  continueButton: {fileID: 1925866783}
 --- !u!82 &631586618
 AudioSource:
   m_ObjectHideFlags: 0
