@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ButtonSound : MonoBehaviour
 {
-    public GameObject audioPrefab;
+    [SerializeField] private GameObject audioPrefab;
 
     public void PlaySound()
     {

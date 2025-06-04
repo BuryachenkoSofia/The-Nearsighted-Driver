@@ -49,6 +49,7 @@ public class GoalsScript : MonoBehaviour
     public TMP_Text coinsText;
     public GameObject newGoalsImg;
     public TMP_Text newGoalsText;
+    public ButtonSound buttonSound;
 
     void Start()
     {
@@ -65,7 +66,7 @@ public class GoalsScript : MonoBehaviour
         {
             goalsStatusStr = PlayerPrefs.GetString("goals");
         }
-        if (SceneManager.GetActiveScene().buildIndex == 1) return;
+        if (SceneManager.GetActiveScene().buildIndex != 0) return;
 
         List<int> sortedIndexes = new List<int>();
         for (int i = 0; i < goals.Count; i++) sortedIndexes.Add(i);
@@ -99,11 +100,12 @@ public class GoalsScript : MonoBehaviour
 
             int capturedIndex = i;
             goal.button.onClick.AddListener(() => OnGoalButtonClicked(capturedIndex));
+            goal.button.onClick.AddListener(() => buttonSound.PlaySound());
         }
     }
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1) return;
+        if (SceneManager.GetActiveScene().buildIndex != 0) return;
 
         coinsText.text = "Coins: " + PlayerPrefs.GetFloat("coins");
         if (PlayerPrefs.GetFloat("coins") >= 100f)
@@ -156,7 +158,7 @@ public class GoalsScript : MonoBehaviour
         chars[index] = '1';
         n = new string(chars);
         PlayerPrefs.SetString("goals", n);
-        if (SceneManager.GetActiveScene().buildIndex == 1) return;
+        if (SceneManager.GetActiveScene().buildIndex != 0) return;
         goals[index].button.gameObject.transform.Find("Text").GetComponent<TMP_Text>().text = "Get reward";
         goals[index].button.interactable = true;
     }

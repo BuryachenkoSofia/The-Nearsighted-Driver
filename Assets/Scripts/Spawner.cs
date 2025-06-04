@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -6,7 +7,7 @@ public class Spawner : MonoBehaviour
     private float timeBtwSpawn;
     public float startTimeBtwSpawn = 2f;
     private float decreaseTime = 0.05f;
-    private float minTime = 0.65f;
+    private float minTime = 0.7f;
 
     void Update()
     {
@@ -26,6 +27,10 @@ public class Spawner : MonoBehaviour
     }
     public void Spawn()
     {
+        if (enemyVariants.Length <= 0)
+        {
+            return;
+        }
         int rand = Random.Range(0, enemyVariants.Length);
         Instantiate(enemyVariants[rand], transform.position, Quaternion.identity);
     }

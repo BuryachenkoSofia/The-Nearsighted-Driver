@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public float speed;
-    public AudioClip coinSound;
     private AudioSource audioSource;
-    public GameObject particles;
+    [SerializeField] private float speed;
+    [SerializeField] private AudioClip coinSound;
+    [SerializeField] private GameObject particles;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();

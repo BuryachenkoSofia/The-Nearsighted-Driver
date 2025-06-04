@@ -58,7 +58,7 @@ public class CarShop : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("equipped")) PlayerPrefs.SetInt("equipped", 0);
 
-        if (SceneManager.GetActiveScene().buildIndex == 1) return;
+        if (SceneManager.GetActiveScene().buildIndex != 0) return;
 
         for (int i = 0; i < 8; ++i)
         {
@@ -82,7 +82,7 @@ public class CarShop : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1) return;
+        if (SceneManager.GetActiveScene().buildIndex != 0) return;
 
         coinsTMP.text = "Coins: " + PlayerPrefs.GetFloat("coins");
         maxDistanceTMP.text = "Max Distance: " + PlayerPrefs.GetFloat("maxDistance") + " km";

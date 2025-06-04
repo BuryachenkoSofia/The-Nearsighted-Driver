@@ -9,28 +9,31 @@ using UnityEngine.Rendering;
 
 public class Player : MonoBehaviour
 {
-    public int health = 1;
-    public float coins = 0;
-    public GameObject heart0, heart1, heart2, heart3, heart4;
-    public PostProcessVolume ppVolume;
-    public GameObject panelDead;
-    private Vector2 targetPos;
-    public DistanceCounter distanceCounter;
-    public TMP_Text coinsTMP;
     private float speed = 20f;
     private float[] lanes = { -6f, -3f, 0f, 3f, 6f };
     private int currentLaneIndex = 2;
-    public List<Sprite> sprites = new List<Sprite>(8);
-    public Image glassesBarFill, shieldBarFill;
+    private Vector2 targetPos;
     private float glassesTimeLeft = 0f, glassesTimeMax = 0f;
     private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
-    public bool glasses = false, shield = false;
-    public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5 = 0, shield5 = 0;
-    public GoalsScript goalsScript;
-    public AudioClip spawnSound;
     private AudioSource audioSource;
-    public GameObject protectiveField;
-    public GameObject enemyParticles;
+    private PostProcessVolume ppVolume;
+    
+    [HideInInspector] public int health = 1;
+    [HideInInspector] public float coins = 0;
+    [HideInInspector] public bool glasses = false, shield = false;
+    [HideInInspector] public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5 = 0, shield5 = 0;
+
+    [SerializeField] private GameObject heart0, heart1, heart2, heart3, heart4;
+    [SerializeField] private GoalsScript goalsScript;
+    [SerializeField] private CarShop carShop;
+    [SerializeField] private DistanceCounter distanceCounter;
+    [SerializeField] private GameObject panelDead;
+    [SerializeField] private TMP_Text coinsTMP;
+    [SerializeField] private List<Sprite> sprites = new List<Sprite>(8);
+    [SerializeField] private Image glassesBarFill, shieldBarFill;
+    [SerializeField] private AudioClip spawnSound;
+    [SerializeField] private GameObject protectiveField;
+    [SerializeField] private GameObject enemyParticles;
 
     private void Awake()
     {
@@ -47,7 +50,7 @@ public class Player : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("coins")) PlayerPrefs.SetFloat("coins", 0);
         coins = PlayerPrefs.GetFloat("coins");
-        health = FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;
+        health = carShop.cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;
         healthSwitch(health);
         coinsTMP.text = "Coins: " + coins;
         glasses = false;
@@ -114,7 +117,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void MoveToNextLane()
+    public void MoveToNextLane()
     {
         if (currentLaneIndex < lanes.Length - 1)
         {
@@ -123,7 +126,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void MoveToPreviousLane()
+    public void MoveToPreviousLane()
     {
         if (currentLaneIndex > 0)
         {
@@ -164,7 +167,7 @@ public class Player : MonoBehaviour
             coins -= 25;
             PlayerPrefs.SetFloat("coins", coins);
             coinsTMP.text = "Coins: " + coins;
-            health = FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;
+            health = carShop.cars[PlayerPrefs.GetInt("equipped")].hp_lvl + 1;
             healthSwitch(health);
             panelDead.SetActive(false);
             gameObject.SetActive(true);
@@ -185,7 +188,7 @@ public class Player : MonoBehaviour
     public void Shield()
     {
         shield = true;
-        shieldTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].shield_lvl + 1) * 2f;
+        shieldTimeMax = (carShop.cars[PlayerPrefs.GetInt("equipped")].shield_lvl + 1) * 2f;
         shieldTimeLeft = shieldTimeMax;
     }
 
@@ -249,7 +252,7 @@ public class Player : MonoBehaviour
     public void ActivateGlasses()
     {
         glasses = true;
-        glassesTimeMax = (FindObjectOfType<CarShop>().cars[PlayerPrefs.GetInt("equipped")].glasses_lvl + 1) * 5f;
+        glassesTimeMax = (carShop.cars[PlayerPrefs.GetInt("equipped")].glasses_lvl + 1) * 5f;
         glassesTimeLeft = glassesTimeMax;
     }
 

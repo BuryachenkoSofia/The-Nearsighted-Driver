@@ -1,0 +1,1 @@
+C:\Users\Asus\Documents\GitHub\The-Nearsighted-Driver\Library\Bee\Android\Prj\Mono2x\Gradle\unityLibrary\src\main\cpp\FramePacing\UnitySwappyWrapper.h

@@ -1,0 +1,5 @@
+# ninja log v5
+622	736	7705526458564475	C:/Users/Asus/Documents/GitHub/The-Nearsighted-Driver/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/u1o2r3n3/obj/armeabi-v7a/libswappywrapper.so	74a8fbca87bd6e07
+1	621	7705526457349745	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	d848bf06ea794891
+19	367	7705574788134406	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	d848bf06ea794891
+367	477	7705574789308103	C:/Users/Asus/Documents/GitHub/The-Nearsighted-Driver/Library/Bee/Android/Prj/Mono2x/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/u1o2r3n3/obj/armeabi-v7a/libswappywrapper.so	74a8fbca87bd6e07
