@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     [HideInInspector] public int health = 1;
     [HideInInspector] public float coins = 0;
-    [HideInInspector] public bool glasses = false, shield = false;
+    [HideInInspector] public bool glasses = false, shield = false, dead=false;
     [HideInInspector] public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5 = 0, shield5 = 0;
 
     [SerializeField] private GameObject heart0, heart1, heart2, heart3, heart4;
@@ -149,6 +149,7 @@ public class Player : MonoBehaviour
 
     public void Dead()
     {
+        dead = true;
         Time.timeScale = 0f;
         if (distanceCounter.distance >= 1f) goalsScript.GoalAchieved(4);
         if (distanceCounter.distance >= 2f) goalsScript.GoalAchieved(5);

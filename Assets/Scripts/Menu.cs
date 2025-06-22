@@ -5,6 +5,7 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject PausePanel;
     [SerializeField] private ButtonSound buttonSound;
+    [SerializeField] private Player player;
 
     private void Update()
     {
@@ -26,6 +27,7 @@ public class Menu : MonoBehaviour
 
     public void PauseButton()
     {
+        if (player.dead) return;
         if (PausePanel.activeSelf)
         {
             Time.timeScale = 1f;

@@ -1780,6 +1780,7 @@ MonoBehaviour:
   coins: 0
   glasses: 1
   shield: 0
+  dead: 0
   hearts10: 0
   coins10: 0
   gems5: 0
@@ -2319,6 +2320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PausePanel: {fileID: 501498798}
   buttonSound: {fileID: 773773415}
+  player: {fileID: 631586617}
 --- !u!114 &773773415
 MonoBehaviour:
   m_ObjectHideFlags: 0

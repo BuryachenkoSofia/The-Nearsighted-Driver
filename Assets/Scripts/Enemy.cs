@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && this.gameObject.GetComponent<SpriteRenderer>().sprite != null)
         {
             this.gameObject.GetComponent<SpriteRenderer>().sprite = null;
             PlayEnemySound();
