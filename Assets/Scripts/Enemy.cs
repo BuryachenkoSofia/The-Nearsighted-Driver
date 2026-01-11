@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
             audioSource.PlayOneShot(enemySound);
         }
     }
-    
+
     private IEnumerator DestroyAfterSound()
     {
         yield return new WaitForSeconds(enemySound.length);

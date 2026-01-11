@@ -4,7 +4,7 @@ using TMPro;
 
 public class PrintingText : MonoBehaviour
 {
-    private float displayDuration = 4f;
+    private float displayDuration = 2f;
     private float typeDelay = 0.02f;
     [SerializeField] private TMP_Text displayText;
 

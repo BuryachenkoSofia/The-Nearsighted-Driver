@@ -5,6 +5,31 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
+public enum GoalId
+{
+    Drive1Km = 0,
+    Drive2Km = 1,
+    Drive3Km = 2,
+    Drive4Km = 3,
+    Drive5Km = 4,
+    Earn100Coins = 5,
+    Earn1000Coins = 6,
+    Collect10Hearts = 7,
+    Collect10Coins = 8,
+    Collect5Gems = 9,
+    Collect10Glasses = 10,
+    Bomb5 = 11,
+    Shield5 = 12,
+    Truck10 = 13,
+    Let10 = 14,
+    Police5 = 15,
+    Buy1Car = 16,
+    BuyAllCars = 17,
+    Drive10Km = 18,
+    Slips5 = 19,
+    Slips1 = 20
+}
+
 public class GoalsScript : MonoBehaviour
 {
     public enum GoalStatus
@@ -17,30 +42,34 @@ public class GoalsScript : MonoBehaviour
     {
         public string text;
         public float reward;
-        public int index;
+        public int id;
+        public int order;
         public Button button;
     }
 
     private List<Goal> goals = new List<Goal>
     {
-        new Goal { text="Collect 10 hearts in a single run", reward=50, index=7 },                //0
-        new Goal { text="Collect 10 coins in a single run", reward=50, index=8 },                 //1
-        new Goal { text="Collect 5 gems in a single run", reward=50, index=9 },                   //2
-        new Goal { text="Collect 10 glasses in a single run", reward=50, index=10 },              //3
-        new Goal { text="Drive 1 km", reward=50, index=0 },                                       //4
-        new Goal { text="Drive 2 km", reward=100, index=1 },                                      //5
-        new Goal { text="Drive 3 km", reward=150, index=2 },                                      //6
-        new Goal { text="Drive 4 km", reward=200, index=3 },                                      //7
-        new Goal { text="Drive 5 km", reward=250, index=4 },                                      //8
-        new Goal { text="Earn 100 coins", reward=20, index=5 },                                   //9
-        new Goal { text="Earn 1000 coins", reward=200, index=6 },                                 //10
-        new Goal { text="Crash into a truck 10 times in a single run", reward=100, index=13 },    //11
-        new Goal { text="Crash into a let 10 times in a single run", reward=50, index=14 },       //12
-        new Goal { text="Crash into a police car 5 times in a single run", reward=200, index=15 },//13
-        new Goal { text="Buy 1 car", reward=200, index=16 },                                      //14
-        new Goal { text="Buy all cars", reward=1000, index=17 },                                  //15
-        new Goal { text="Collect 5 bomb in a single run", reward=100, index=11 },                 //16
-        new Goal { text="Collect 5 shield in a single run", reward=100, index=12 },               //17
+        new Goal { text="Drive 1 km", reward=50, order=0, id=0 },
+        new Goal { text="Drive 2 km", reward=100, order=1, id=1 },
+        new Goal { text="Drive 3 km", reward=150, order=2, id=2 },
+        new Goal { text="Drive 4 km", reward=200, order=3, id=3 },
+        new Goal { text="Drive 5 km", reward=250, order=4, id=4 },
+        new Goal { text="Drive 10 km", reward=500, order = 5, id=18},
+        new Goal { text="Earn 100 coins", reward=20, order=6, id=5 },
+        new Goal { text="Earn 1000 coins", reward=200, order=7, id=6 },
+        new Goal { text="Collect 10 hearts in a single run", reward=50, order=8, id=7 },
+        new Goal { text="Collect 10 coins in a single run", reward=50, order=9, id=8 },
+        new Goal { text="Collect 5 gems in a single run", reward=50, order=10, id=9 },
+        new Goal { text="Collect 10 glasses in a single run", reward=50, order=11, id=10 },
+        new Goal { text="Collect 5 bomb in a single run", reward=100, order=12, id=11 },
+        new Goal { text="Collect 5 shield in a single run", reward=100, order=13, id=12 },
+        new Goal { text="Crash into a truck 10 times in a single run", reward=100, order=14, id=13 },
+        new Goal { text="Crash into a let 10 times in a single run", reward=50, order=15, id=14 },
+        new Goal { text="Crash into a police car 5 times in a single run", reward=200, order=16, id=15 },
+        new Goal { text="Survive 1 slip", reward=50, order=17, id=20 },
+        new Goal { text="Survive 5 slips", reward=200, order=18, id=19 },
+        new Goal { text="Buy 1 car", reward=200, order=19, id=16 },
+        new Goal { text="Buy all cars", reward=1000, order=20, id=17 },
     };
 
     private string goalsStatusStr = "";
@@ -54,22 +83,27 @@ public class GoalsScript : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("goals"))
         {
-            goalsStatusStr = "";
-            for (int i = 0; i < goals.Count; ++i)
-            {
-                goalsStatusStr += '0';
-            }
+            int maxId = goals.Max(g => g.id);
+            goalsStatusStr = new string('0', maxId + 1);
             PlayerPrefs.SetString("goals", goalsStatusStr);
         }
         else
         {
             goalsStatusStr = PlayerPrefs.GetString("goals");
         }
+
+        int maxIdCheck = goals.Max(g => g.id);
+        if (goalsStatusStr.Length <= maxIdCheck)
+        {
+            goalsStatusStr = goalsStatusStr.PadRight(maxIdCheck + 1, '0');
+            PlayerPrefs.SetString("goals", goalsStatusStr);
+        }
+
         if (SceneManager.GetActiveScene().buildIndex != 0) return;
 
         List<int> sortedIndexes = new List<int>();
         for (int i = 0; i < goals.Count; i++) sortedIndexes.Add(i);
-        sortedIndexes.Sort((a, b) => goals[a].index.CompareTo(goals[b].index));
+        sortedIndexes.Sort((a, b) => goals[a].order.CompareTo(goals[b].order));
 
         for (int sortedPos = 0; sortedPos < sortedIndexes.Count; ++sortedPos)
         {
@@ -80,25 +114,26 @@ public class GoalsScript : MonoBehaviour
             obj.transform.localPosition = new Vector3(250f + 450f * sortedPos, -341.5f, 0);
             obj.transform.Find("Text").GetComponent<TMP_Text>().text = goal.text + "\nReward:\n" + goal.reward + " coins";
             goal.button = obj.transform.Find("GetReward").GetComponent<Button>();
+            int id = goal.id;
 
-            if (goalsStatusStr[i] == '0')
+            if (goalsStatusStr[id] == '0')
             {
                 goal.button.transform.Find("Text").GetComponent<TMP_Text>().text = "Get reward";
                 goal.button.interactable = false;
             }
-            else if (goalsStatusStr[i] == '1')
+            else if (goalsStatusStr[id] == '1')
             {
                 goal.button.transform.Find("Text").GetComponent<TMP_Text>().text = "Get reward";
                 goal.button.interactable = true;
             }
-            else if (goalsStatusStr[i] == '2')
+            else if (goalsStatusStr[id] == '2')
             {
                 goal.button.transform.Find("Text").GetComponent<TMP_Text>().text = "Reward received";
                 goal.button.interactable = false;
             }
 
-            int capturedIndex = i;
-            goal.button.onClick.AddListener(() => OnGoalButtonClicked(capturedIndex));
+            int capturedId = id;
+            goal.button.onClick.AddListener(() => OnGoalButtonClicked(capturedId));
             goal.button.onClick.AddListener(() => buttonSound.PlaySound());
         }
     }
@@ -110,19 +145,19 @@ public class GoalsScript : MonoBehaviour
         coinsText.text = "Coins: " + PlayerPrefs.GetFloat("coins");
         if (PlayerPrefs.GetFloat("coins") >= 100f)
         {
-            GoalAchieved(9);
+            GoalAchieved((int)GoalId.Earn100Coins);
         }
         if (PlayerPrefs.GetFloat("coins") >= 1000f)
         {
-            GoalAchieved(10);
+            GoalAchieved((int)GoalId.Earn1000Coins);
         }
         if (PlayerPrefs.GetString("cars").Count(c => c == '1') > 1)
         {
-            GoalAchieved(14);
+            GoalAchieved((int)GoalId.Buy1Car);
         }
         if (PlayerPrefs.GetString("cars") == "11111111")
         {
-            GoalAchieved(15);
+            GoalAchieved((int)GoalId.BuyAllCars);
         }
         if (PlayerPrefs.GetString("goals").Count(c => c == '1') > 0)
         {
@@ -135,33 +170,29 @@ public class GoalsScript : MonoBehaviour
         }
     }
 
-    private void OnGoalButtonClicked(int index)
+    private void OnGoalButtonClicked(int id)
     {
-        PlayerPrefs.SetFloat("coins", PlayerPrefs.GetFloat("coins") + goals[index].reward);
+        Goal goal = goals.First(g => g.id == id);
 
-        string n = PlayerPrefs.GetString("goals");
+        PlayerPrefs.SetFloat("coins", PlayerPrefs.GetFloat("coins") + goal.reward);
+
         char[] chars = PlayerPrefs.GetString("goals").ToCharArray();
-        chars[index] = '2';
-        n = new string(chars);
-        PlayerPrefs.SetString("goals", n);
+        chars[id] = '2';
+        PlayerPrefs.SetString("goals", new string(chars));
 
-        goals[index].button.gameObject.transform.Find("Text").GetComponent<TMP_Text>().text = "Reward received";
-        goals[index].button.interactable = false;
+        goal.button.gameObject.transform.Find("Text").GetComponent<TMP_Text>().text = "Reward received";
+        goal.button.interactable = false;
     }
-    
-    public void GoalAchieved(int index)
+
+    public void GoalAchieved(int id)
     {
-        if (PlayerPrefs.GetString("goals")[index] == '2')
-        {
-            return;
-        }
-        string n = PlayerPrefs.GetString("goals");
         char[] chars = PlayerPrefs.GetString("goals").ToCharArray();
-        chars[index] = '1';
-        n = new string(chars);
-        PlayerPrefs.SetString("goals", n);
+        if (chars[id] == '2') return;
+        chars[id] = '1';
+        PlayerPrefs.SetString("goals", new string(chars));
         if (SceneManager.GetActiveScene().buildIndex != 0) return;
-        goals[index].button.gameObject.transform.Find("Text").GetComponent<TMP_Text>().text = "Get reward";
-        goals[index].button.interactable = true;
+        Goal goal = goals.First(g => g.id == id);
+        goal.button.gameObject.transform.Find("Text").GetComponent<TMP_Text>().text = "Get reward";
+        goal.button.interactable = true;
     }
 }

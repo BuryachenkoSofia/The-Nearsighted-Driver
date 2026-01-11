@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
@@ -14,13 +15,14 @@ public class Player : MonoBehaviour
     private float glassesTimeLeft = 0f, glassesTimeMax = 0f;
     private float shieldTimeLeft = 0f, shieldTimeMax = 0f;
     private bool isContinue = false;
+    private float rainSlipChance = 0.1f, snowSlipChance = 0.15f, sleetSlipChance = 0.2f;
     private AudioSource audioSource;
     private PostProcessVolume ppVolume;
 
     [HideInInspector] public int health = 1;
     [HideInInspector] public float coins = 0;
-    [HideInInspector] public bool glasses = false, shield = false, dead=false;
-    [HideInInspector] public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5 = 0, shield5 = 0;
+    [HideInInspector] public bool glasses = false, shield = false, dead = false;
+    [HideInInspector] public int hearts10 = 0, coins10 = 0, gems5 = 0, glasses10 = 0, truck10 = 0, let10 = 0, police5 = 0, bomb5 = 0, shield5 = 0, survivedSlips = 0;
 
     [SerializeField] private GameObject heart0, heart1, heart2, heart3, heart4;
     [SerializeField] private GoalsScript goalsScript;
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject protectiveField;
     [SerializeField] private GameObject enemyParticles, shieldParticles;
     [SerializeField] private Button continueButton;
+    [SerializeField] private Weather weather;
 
     private void Awake()
     {
@@ -63,27 +66,32 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (hearts10 >= 10) goalsScript.GoalAchieved(0);
-        if (coins10 >= 10) goalsScript.GoalAchieved(1);
-        if (gems5 >= 5) goalsScript.GoalAchieved(2);
-        if (glasses10 >= 10) goalsScript.GoalAchieved(3);
-        if (truck10 >= 10) goalsScript.GoalAchieved(11);
-        if (let10 >= 10) goalsScript.GoalAchieved(12);
-        if (police5 >= 5) goalsScript.GoalAchieved(13);
-        if (bomb5 >= 5) goalsScript.GoalAchieved(16);
-        if (shield5 >= 5) goalsScript.GoalAchieved(17);
+        if (hearts10 >= 10) goalsScript.GoalAchieved((int)GoalId.Collect10Hearts);
+        if (coins10 >= 10) goalsScript.GoalAchieved((int)GoalId.Collect10Coins);
+        if (gems5 >= 5) goalsScript.GoalAchieved((int)GoalId.Collect5Gems);
+        if (glasses10 >= 10) goalsScript.GoalAchieved((int)GoalId.Collect10Glasses);
+        if (truck10 >= 10) goalsScript.GoalAchieved((int)GoalId.Truck10);
+        if (let10 >= 10) goalsScript.GoalAchieved((int)GoalId.Let10);
+        if (police5 >= 5) goalsScript.GoalAchieved((int)GoalId.Police5);
+        if (bomb5 >= 5) goalsScript.GoalAchieved((int)GoalId.Bomb5);
+        if (shield5 >= 5) goalsScript.GoalAchieved((int)GoalId.Shield5);
 
         if (Vector2.Distance(transform.position, targetPos) < 0.01f)
         {
+            bool moved = false;
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             {
                 MoveToNextLane();
+                moved = true;
             }
             else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             {
                 MoveToPreviousLane();
+                moved = true;
             }
+            Slip(moved);
         }
+
         transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
         if (health <= 0)
@@ -151,11 +159,12 @@ public class Player : MonoBehaviour
     {
         dead = true;
         Time.timeScale = 0f;
-        if (distanceCounter.distance >= 1f) goalsScript.GoalAchieved(4);
-        if (distanceCounter.distance >= 2f) goalsScript.GoalAchieved(5);
-        if (distanceCounter.distance >= 3f) goalsScript.GoalAchieved(6);
-        if (distanceCounter.distance >= 4f) goalsScript.GoalAchieved(7);
-        if (distanceCounter.distance >= 5f) goalsScript.GoalAchieved(8);
+        if (distanceCounter.distance >= 1f) goalsScript.GoalAchieved((int)GoalId.Drive1Km);
+        if (distanceCounter.distance >= 2f) goalsScript.GoalAchieved((int)GoalId.Drive2Km);
+        if (distanceCounter.distance >= 3f) goalsScript.GoalAchieved((int)GoalId.Drive3Km);
+        if (distanceCounter.distance >= 4f) goalsScript.GoalAchieved((int)GoalId.Drive4Km);
+        if (distanceCounter.distance >= 5f) goalsScript.GoalAchieved((int)GoalId.Drive5Km);
+        if (distanceCounter.distance >= 10f) goalsScript.GoalAchieved((int)GoalId.Drive10Km);
 
         glassesBarFill.fillAmount = 0;
         shieldBarFill.fillAmount = 0;
@@ -282,4 +291,38 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Slip(bool moved)
+    {
+        if (weather.state != WeatherState.Clear && moved)
+        {
+            float slipChance = 0f;
+            if (weather.state == WeatherState.Rain)
+            {
+                slipChance = rainSlipChance;
+            }
+            else if (weather.state == WeatherState.Snow)
+            {
+                slipChance = snowSlipChance;
+            }
+            else if (weather.state == WeatherState.Sleet)
+            {
+                slipChance = sleetSlipChance;
+            }
+
+            if (Random.value < slipChance)
+            {
+                if (Input.GetKey(KeyCode.D) || Input.GetTouch(0).position.x > Screen.width / 2)
+                {
+                    MoveToNextLane();
+                }
+                else if (Input.GetKey(KeyCode.A) || Input.GetTouch(0).position.x < Screen.width / 2)
+                {
+                    MoveToPreviousLane();
+                }
+                survivedSlips++;
+                if (survivedSlips >= 5) goalsScript.GoalAchieved((int)GoalId.Slips5);
+                if (survivedSlips >= 1) goalsScript.GoalAchieved((int)GoalId.Slips1);
+            }
+        }
+    }
 }
